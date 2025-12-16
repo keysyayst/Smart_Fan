@@ -10,10 +10,10 @@ class ManualControl extends Model
     use HasFactory;
 
     protected $table = 'manual_control';
+    public $timestamps = false;
 
     protected $fillable = [
         'fan',
         'led'
     ];
-    public $timestamps = false;
 }

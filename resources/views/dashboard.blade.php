@@ -230,13 +230,11 @@
 
             <select name="fan">
                 <option value="OFF">OFF</option>
-                <option value="SEDANG">SEDANG</option>
-                <option value="TINGGI">TINGGI</option>
+                <option value="ON">ON</option>
             </select>
 
             <select name="led">
                 <option value="HIJAU">HIJAU</option>
-                <option value="KUNING">KUNING</option>
                 <option value="MERAH">MERAH</option>
             </select>
 

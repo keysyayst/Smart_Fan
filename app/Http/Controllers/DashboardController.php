@@ -18,7 +18,7 @@ class DashboardController extends Controller
     {
         ManualControl::create([
             'fan' => $request->fan,
-            'led' => $request->led
+            'led' => $request->led    
         ]);
 
         return redirect()->back();
