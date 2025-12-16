@@ -10,10 +10,10 @@ class ManualControl extends Model
     use HasFactory;
 
     protected $table = 'manual_control';
-    public $timestamps = false;
+    // timestamps sudah aktif by default di Laravel
 
     protected $fillable = [
-        'fan',
-        'led'
+        'mode',
+        'fan'
     ];
 }

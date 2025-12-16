@@ -205,21 +205,19 @@
         <div class="label">Status Kipas</div>
         <div class="status
             @if(($data->fan_status ?? '') == 'OFF') fan-off
-            @elseif(($data->fan_status ?? '') == 'SEDANG') fan-sedang
             @else fan-tinggi
             @endif">
-            {{ $data->fan_status ?? '-' }}
+            {{ ($data->fan_status ?? '') == 'OFF' ? 'MATI' : 'NYALA' }}
         </div>
     </div>
 
     <div class="card">
         <div class="label">Status LED</div>
         <div class="status
-            @if(($data->led_status ?? '') == 'HIJAU') led-hijau
-            @elseif(($data->led_status ?? '') == 'KUNING') led-kuning
+            @if(($data->fan_status ?? '') == 'OFF') led-hijau
             @else led-merah
             @endif">
-            {{ $data->led_status ?? '-' }}
+            {{ ($data->fan_status ?? '') == 'OFF' ? 'HIJAU' : 'MERAH' }}
         </div>
     </div>
 
@@ -229,16 +227,24 @@
             @csrf
 
             <select name="fan">
-                <option value="OFF">OFF</option>
-                <option value="ON">ON</option>
-            </select>
-
-            <select name="led">
-                <option value="HIJAU">HIJAU</option>
-                <option value="MERAH">MERAH</option>
+                <option value="OFF">FAN OFF</option>
+                <option value="ON">FAN ON</option>
             </select>
 
             <button>Kirim Kontrol</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <div class="label">Mode Otomatis</div>
+        <form method="POST" action="/auto">
+            @csrf
+            <button style="background: linear-gradient(135deg, #27ae60, #1e5631);">
+                Reset ke AUTO (Sensor)
+            </button>
+            <p style="margin-top: 10px; font-size: 0.85em; text-align: center; color: #666;">
+                Kipas akan dikontrol otomatis berdasarkan suhu
+            </p>
         </form>
     </div>
 
@@ -247,6 +253,43 @@
 <footer>
     © 2025 Smart IoT Project • Piranti Cerdas
 </footer>
+
+<script>
+// Auto-refresh data setiap 2 detik
+setInterval(async () => {
+    try {
+        const response = await fetch(window.location.href);
+        const html = await response.text();
+
+        // Parse HTML baru
+        const parser = new DOMParser();
+        const newDoc = parser.parseFromString(html, 'text/html');
+
+        // Update card temperature
+        const oldTemp = document.querySelectorAll('.card')[0];
+        const newTemp = newDoc.querySelectorAll('.card')[0];
+        if (oldTemp && newTemp) oldTemp.innerHTML = newTemp.innerHTML;
+
+        // Update card humidity
+        const oldHum = document.querySelectorAll('.card')[1];
+        const newHum = newDoc.querySelectorAll('.card')[1];
+        if (oldHum && newHum) oldHum.innerHTML = newHum.innerHTML;
+
+        // Update card fan status
+        const oldFan = document.querySelectorAll('.card')[2];
+        const newFan = newDoc.querySelectorAll('.card')[2];
+        if (oldFan && newFan) oldFan.innerHTML = newFan.innerHTML;
+
+        // Update card LED status
+        const oldLed = document.querySelectorAll('.card')[3];
+        const newLed = newDoc.querySelectorAll('.card')[3];
+        if (oldLed && newLed) oldLed.innerHTML = newLed.innerHTML;
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}, 2000); // 2000 ms = 2 detik
+</script>
 
 </body>
 </html>

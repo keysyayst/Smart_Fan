@@ -16,9 +16,21 @@ class DashboardController extends Controller
 
     public function manual(Request $request)
     {
+        // Simpan kontrol manual: mode MANUAL + perintah FAN
         ManualControl::create([
-            'fan' => $request->fan,
-            'led' => $request->led    
+            'mode' => 'MANUAL',
+            'fan' => $request->fan
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function auto()
+    {
+        // Reset ke mode AUTO - sensor data akan mengontrol fan
+        ManualControl::create([
+            'mode' => 'AUTO',
+            'fan' => null
         ]);
 
         return redirect()->back();

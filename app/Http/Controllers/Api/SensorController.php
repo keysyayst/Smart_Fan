@@ -13,8 +13,7 @@ class SensorController extends Controller
         SensorData::create([
             'temperature' => $request->temperature,
             'humidity' => $request->humidity,
-            'fan_status' => $request->fan_status,
-            'led_status' => $request->led_status
+            'fan_status' => $request->fan_status
         ]);
 
         return response()->json(['status' => 'ok']);

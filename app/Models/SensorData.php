@@ -14,7 +14,6 @@ class SensorData extends Model
     protected $fillable = [
         'temperature',
         'humidity',
-        'fan_status',
-        'led_status'
+        'fan_status'
     ];
 }
