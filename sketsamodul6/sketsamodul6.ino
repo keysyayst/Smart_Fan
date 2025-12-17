@@ -6,18 +6,14 @@
 /* ================= CONFIG ================= */
 #define DHTPIN 4
 #define DHTTYPE DHT11
-
-#define FAN_RELAY_PIN 26      // PIN KE INPUT RELAY (untuk kipas 12V)
+#define FAN_RELAY_PIN 26      
 #define LED_HIJAU 27
 #define LED_MERAH 25
 
-const char* ssid = "KOS ERGA";
-const char* password = "tanyaERGAno8";
-
-const char* serverSensor = "http://192.168.1.22:8000/api/sensor";
-const char* serverManual = "http://192.168.1.22:8000/manual/latest";
-
-/* ========================================== */
+const char* ssid = "keyy";
+const char* password = "01122315"
+const char* serverSensor = "http://172.20.10.11:8000/api/sensor";
+const char* serverManual = "http://172.20.10.11:8000/manual/latest";
 
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -25,7 +21,7 @@ DHT dht(DHTPIN, DHTTYPE);
 String fanStatus = "OFF";
 
 // MODE CONTROL
-String currentMode = "AUTO";  // AUTO atau MANUAL
+String currentMode = "AUTO";  
 String manualFan = "";
 
 // TIMING
@@ -52,7 +48,6 @@ void setup() {
 }
 
 void loop() {
-  // pastikan WiFi tetap terhubung
   if (WiFi.status() != WL_CONNECTED) {
     connectWiFi();
   }
@@ -94,7 +89,7 @@ void loop() {
 
 /* ============ SET FAN STATE (TERPUSAT) ============ */
 // Fungsi ini mengatur RELAY KIPAS dan LED secara bersamaan
-// Prinsip: LED mengikuti status FAN - SINGLE SOURCE OF TRUTH
+// Prinsip: LED mengikuti status FAN - SINGLE SOURCE OF TRUTHw
 
 void setFanState(bool on) {
   if (on) {
